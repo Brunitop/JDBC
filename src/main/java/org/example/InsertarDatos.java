@@ -6,53 +6,41 @@ import java.util.Scanner;
 public class InsertarDatos {
 
     public static void main(String[] args) {
-        Scanner ns = new Scanner(System.in);
-        final String URL_DB = "jdbc:postgresql://localhost:5432/aerolinea";
+        final String URL_DB = "jdbc:postgresql://localhost:5432/Airports";
         //final String URL_DB = "jdbc:mysql://localhost/produccion";
-        final String USER_DB = "newuser";
-        final String PASS_DB = "rfvgygvfrocho";
+        final String USER_DB = "postgres";
+        final String PASS_DB = "ad0r0Dormir";
+        Scanner sc = new Scanner(System.in);
+        String airport_code, city, state, name;
 
-        if( args.length != 4) {
-            System.out.println("java InsertAirport <airport_code> <city> <state> <name>");
-            System.exit(1);
+        //Pedir el código del aeropuerto
+        System.out.print("Ingrese el código del aeropuerto: (3 caracteres): ");
+        airport_code = sc.next().toUpperCase();
+        while (airport_code.length() != 3) {
+            System.out.println("Error. Deben ser 3 caracteres");
+            System.out.print("\nIngrese el código del aeropuerto: (3 caracteres): ");
+            airport_code = sc.next().toUpperCase();
         }
 
-        StringBuilder sql = new StringBuilder("INSERT INTO airport VALUES (\'");
-        System.out.println("Valores de nueva tupla para tabla 'airport'");
-        try {
-            System.out.println("Ingrese el codigo de aeropuerto");
-            String airport_code = ns.next();
-            while (airport_code.length() != 3) {
-                System.out.println("Debe ser un código de 3 letras mayusculas");
-            }
-            sql.append(airport_code);
-            sql.append("\', ");
+        //Pedir la ciudad del aeropuerto
+        System.out.print("\nIngrese la ciudad del aeropuerto: ");
+        city = sc.next();
 
-            System.out.println("Ingrese la ciudad");
-            String city = ns.next();
-            sql.append(city);
-            sql.append(", ");
+        //Pedir el estado del aeropuerto
+        System.out.print("\nIngrese el estado del aeropuerto: ");
+        state = sc.next();
 
-            System.out.println("Ingrese el estado");
-            String state = ns.next();
-            sql.append(state);
-            sql.append(", ");
-
-            System.out.println("Ingrese el nombre del aeropuerto");
-            String name = ns.next();
-            sql.append(name);
-            sql.append(") ");
-        }catch(Exception e){
-            System.out.println("ERROR: se ingreso algun tipo de dato erroneo");
-            System.exit(1);
-        }
+        //Pedir el nombre del aeropuerto
+        System.out.print("\nIngrese el nombre del aeropuerto: ");
+        name = sc.next();
+        name.replace("\n", " ");
 
         try {
             // Cargar driver de JDBC
             // para la base de datos apropiada.
-            Class.forName("org.postgresql.jdbc.Driver");
+            Class.forName("org.postgresql.Driver");
         } catch (Exception ex) {
-            System.out.println("No se encontro el driver JDBC.");
+            System.out.println("No se encontró el driver JDBC.");
             System.exit(1);
         }
 
@@ -71,40 +59,31 @@ public class InsertarDatos {
             System.out.println("VendorError: " + ex.getErrorCode());
             System.exit(1);
         }
-
-        Statement stmt = null;
-
+        PreparedStatement stmt;
         try {
             // Crear el comando para ejecución
-            stmt = conn.createStatement();
-
-            System.out.printf("Commando: %s%n", sql);
-
+            stmt = conn.prepareStatement("INSERT INTO airport(airport_code, city, state, name) VALUES (?,?,?,?)");
+            stmt.setString(1, airport_code);
+            stmt.setString(2, city);
+            stmt.setString(3, state);
+            stmt.setString(4, name);
+            System.out.println("Comando: INSERT INTO airport(airport_code, city, state, name) VALUES ("
+                    + airport_code + ", "
+                    + city + ", "
+                    + state + ", "
+                    + name + ")");
             // Ejecutar comando
-            stmt.executeUpdate( sql.toString() );
+            stmt.executeUpdate();
             stmt.close();
-
         } catch (SQLException ex) {
             // handle any errors
             System.out.println("SQLException: " + ex.getMessage());
             System.out.println("SQLState: " + ex.getSQLState());
             System.out.println("VendorError: " + ex.getErrorCode());
             System.exit(1);
-        } finally {
-            // it is a good idea to release
-            // resources in a finally{} block
-            // in reverse-order of their creation
-            // if they are no-longer needed
-            if (stmt != null) {
-                try {
-                    stmt.close();
-                } catch (SQLException sqlEx) {
-                } // ignore
-
-                stmt = null;
-            }
         }
         try {
+
             conn.close();
         } catch (SQLException ex) {
             System.out.println("Error");
