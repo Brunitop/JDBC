@@ -23,7 +23,6 @@ public class ConsultaCiudad {
             // Cargar driver de JDBC
             // para la base de datos apropiada.
             Class.forName("org.postgresql.Driver");
-
         } catch (Exception ex) {
             System.out.println("No se encontro el driver JDBC.");
             System.exit(1);

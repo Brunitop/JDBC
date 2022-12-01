@@ -7,6 +7,7 @@ public class InsertarDatos {
 
     public static void main(String[] args) {
         final String URL_DB = "jdbc:postgresql://localhost:5432/Airports";
+
         //final String URL_DB = "jdbc:mysql://localhost/produccion";
         final String USER_DB = "postgres";
         final String PASS_DB = "ad0r0Dormir";

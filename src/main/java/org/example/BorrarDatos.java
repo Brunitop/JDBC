@@ -16,7 +16,6 @@ public class BorrarDatos {
             // Cargar driver de JDBC
             // para la base de datos apropiada.
             Class.forName("org.postgresql.Driver");
-
         } catch (Exception ex) {
             System.out.println("No se encontró el driver JDBC.");
             System.exit(1);
