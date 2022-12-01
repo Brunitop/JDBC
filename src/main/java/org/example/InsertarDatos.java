@@ -15,24 +15,24 @@ public class InsertarDatos {
         String airport_code, city, state, name;
 
         //Pedir el código del aeropuerto
-        System.out.print("Ingrese el código del aeropuerto: (3 caracteres): ");
+        System.out.print("Codigo del aeropuerto (mayusculas o minusculas): ");
         airport_code = sc.next().toUpperCase();
         while (airport_code.length() != 3) {
             System.out.println("Error. Deben ser 3 caracteres");
-            System.out.print("\nIngrese el código del aeropuerto: (3 caracteres): ");
+            System.out.print("Codigo deñ aeropuerto (mayusculas o minusculas): ");
             airport_code = sc.next().toUpperCase();
         }
 
         //Pedir la ciudad del aeropuerto
-        System.out.print("\nIngrese la ciudad del aeropuerto: ");
+        System.out.print("Ciudad: ");
         city = sc.next();
 
         //Pedir el estado del aeropuerto
-        System.out.print("\nIngrese el estado del aeropuerto: ");
+        System.out.print("Estado: ");
         state = sc.next();
 
         //Pedir el nombre del aeropuerto
-        System.out.print("\nIngrese el nombre del aeropuerto: ");
+        System.out.print("Nombre: ");
         name = sc.next();
         name.replace("\n", " ");
 

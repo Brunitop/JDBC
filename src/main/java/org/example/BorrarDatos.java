@@ -21,11 +21,11 @@ public class BorrarDatos {
             System.exit(1);
         }
         //Pedir el código del aeropuerto
-        System.out.print("Ingrese el código del aeropuerto: (3 caracteres): ");
+        System.out.print("Codigo deñ aeropuerto (mayusculas o minusculas): ");
         airport_code = sc.next().toUpperCase();
         while (airport_code.length() != 3) {
-            System.out.println("Error. Deben ser 3 caracteres");
-            System.out.print("\nIngrese el código del aeropuerto: (3 caracteres): ");
+            System.out.println("ERROR: Deben ser 3 caracteres");
+            System.out.print("Codigo deñ aeropuerto (mayusculas o minusculas): ");
             airport_code = sc.next().toUpperCase();
         }
 
