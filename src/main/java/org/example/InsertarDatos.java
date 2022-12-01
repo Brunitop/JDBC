@@ -9,8 +9,8 @@ public class InsertarDatos {
         final String URL_DB = "jdbc:postgresql://localhost:5432/Airports";
 
         //final String URL_DB = "jdbc:mysql://localhost/produccion";
-        final String USER_DB = "postgres";
-        final String PASS_DB = "ad0r0Dormir";
+        final String USER_DB = "newuser";
+        final String PASS_DB = "rfvgygvfrocho";
         Scanner sc = new Scanner(System.in);
         String airport_code, city, state, name;
 
